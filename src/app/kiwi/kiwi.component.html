@@ -1,0 +1,103 @@
+<!-- <div class="kiwi-div1" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+    <div class="item item-1" fxFlex="15%">Item 1</div>
+    <div class="item item-2" fxFlex="20%" fxFlexOrder="3">Item 2</div>
+    <div class="item item-3" fxFlex>Item 3</div>
+</div>
+
+<div class="kiwi-div2" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+    <div class="item item-4" fxFlex fxFlexOffset="50px" fxFlexOffset.xs="0">Item 4</div>
+    <div class="item item-5" fxFlex="200px">Item 5</div>
+</div> -->
+
+<!-- Form Array -->
+
+<div class="kiwi-div" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center">
+
+    <mat-card class="example-card" fxLayout="row wrap" fxLayoutAlign="center center">
+        <mat-card-header>
+            <mat-card-title>Kiwi Form</mat-card-title>
+            <mat-card-subtitle>{{ (config | async)?.adminName }}</mat-card-subtitle>
+
+            <!-- submit buckets -->
+            <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center">
+                <button class="create-bucket" (click)="appendToKiwi()" mat-raised-button>Append Data</button>
+            </div>
+
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <!-- kiwi form -->
+            <div [formGroup]="kiwiForm" fxLayout="row wrap" fxLayoutAlign="center center">
+
+                <!-- Dude name -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input formControlName="dudeName" matInput placeholder="Name">
+                    <mat-icon matSuffix>face</mat-icon>
+                </mat-form-field>
+
+                <!-- dude email -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input formControlName="dudeEmail" matInput placeholder="Email">
+                    <mat-icon matSuffix>mail_outline</mat-icon>
+                </mat-form-field>
+
+                <!-- form array -->
+                <div class="kiwi-array" fxLayout="row wrap" fxFlex="100" formArrayName="buckets"
+                    *ngFor="let item of kiwiForm.get('buckets').controls; let i = index;">
+
+                    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end start">
+                        <!-- remove form button -->
+                        <mat-icon (click)="removeBucket(i)" class="delete-kiwi" matTooltip="Remove bucket">
+                            delete_sweep
+                        </mat-icon>
+                    </div>
+
+                    <div fxFlex="300" [formGroupName]="i" fxLayout="row wrap" fxLayoutAlign="center center">
+
+                        <!-- bucket name -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Bucket Name</mat-label>
+                            <input formControlName="bcName" matInput placeholder="Bucket Name">
+                            <mat-icon matSuffix>shopping_basket</mat-icon>
+                        </mat-form-field>
+
+                        <!-- bucket price -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Bucket Price</mat-label>
+                            <input formControlName="bcPrice" matInput placeholder="Bucket Price">
+                            <mat-icon matSuffix>attach_money</mat-icon>
+                        </mat-form-field>
+
+                        <!-- bucket tag -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Bucket tag</mat-label>
+                            <input formControlName="bcTag" matInput placeholder="Bucket tag">
+                            <mat-icon matSuffix>pets</mat-icon>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+                <!-- add more buckets -->
+                <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end start">
+                    <mat-icon class="add-bucket" (click)="getUser()" matTooltip="Add bucket">add_shopping_cart
+                    </mat-icon>
+                </div>
+
+                <!-- submit buckets -->
+                <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center">
+                    <button class="create-bucket" (click)="fetchUser()" mat-raised-button>Create Bucket</button>
+                </div>
+
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+
+        </mat-card-actions>
+
+    </mat-card>
+
+</div>
